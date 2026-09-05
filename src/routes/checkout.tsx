@@ -30,37 +30,11 @@ const KIT_IMAGES: Record<KitId, { url: string; alt: string }> = {
   "5": { url: kit5Asset.url, alt: "Kit com cinco frascos do tônico Ultra D'Lust Original de 120 ml" },
 };
 
-const FEES_KEY = "udl-shipping-fees";
-
-function randomCents(min: number, max: number) {
-  let value = Math.floor(Math.random() * (max - min + 1)) + min;
-  // evita valores exatos tipo 5,00 / 8,00
-  if (value % 100 === 0) value += Math.floor(Math.random() * 90) + 5;
-  return value;
-}
-
-function generateShippingFees(): Record<ShippingId, number> {
-  return {
-    standard: randomCents(501, 649),
-    express: randomCents(651, 799),
-  };
-}
+// Frete grátis: o valor cobrado é exatamente o preço do kit exibido na oferta.
+const SHIPPING_FEES: Record<ShippingId, number> = { standard: 0, express: 0 };
 
 function loadShippingFees(): Record<ShippingId, number> {
-  try {
-    const raw = localStorage.getItem(FEES_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      if (typeof parsed.standard === "number" && typeof parsed.express === "number") {
-        return parsed as Record<ShippingId, number>;
-      }
-    }
-  } catch {
-    /* ignore */
-  }
-  const generated = generateShippingFees();
-  localStorage.setItem(FEES_KEY, JSON.stringify(generated));
-  return generated;
+  return SHIPPING_FEES;
 }
 
 export const Route = createFileRoute("/checkout")({
