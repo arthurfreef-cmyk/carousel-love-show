@@ -115,7 +115,6 @@ function CheckoutPage() {
   const formatBRL = (cents: number) =>
     (cents / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   const shippingAmount = fees?.[shipping] ?? 0;
-  const shippingPrice = shippingAmount > 0 ? formatBRL(shippingAmount) : "Grátis";
   const total = selected.amount + shippingAmount;
   const savings =
     (parseInt(selected.reference.replace(/\D/g, ""), 10) || 0) - selected.amount;
