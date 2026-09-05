@@ -88,5 +88,10 @@ export const sendCapiEvent = createServerFn({ method: "POST" })
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ data: [event] }),
     });
+    if (!res.ok) {
+      const detail = await res.text().catch(() => "");
+      console.error("[meta-capi] falhou", data.eventName, res.status, detail.slice(0, 500));
+    }
     return { ok: res.ok, status: res.status };
   });
+
