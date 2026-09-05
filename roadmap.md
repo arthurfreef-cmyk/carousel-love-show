@@ -1,5 +1,7 @@
 # Roadmap
 
-- [ ] Remover marca d'água (badge Lovable)
-- [ ] Trocar texto do botão do checkout para "COMPRAR AGORA"
-- [ ] Verificar se o Pix da Buckpay está sendo gerado
+- [x] Remover marca d'água (badge Lovable)
+- [x] Trocar texto do botão do checkout para "COMPRAR AGORA"
+- [x] Verificar se o Pix da Buckpay está sendo gerado (OK — QR e código gerados)
+- [x] Remover integração MasterFy (código + chaves)
+- [ ] Token da Meta (CAPI) inválido — precisa de um token novo do usuário
