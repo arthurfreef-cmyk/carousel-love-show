@@ -115,7 +115,7 @@ function CheckoutPage() {
   const formatBRL = (cents: number) =>
     (cents / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   const shippingAmount = fees?.[shipping] ?? 0;
-  const shippingPrice = formatBRL(shippingAmount);
+  const shippingPrice = shippingAmount > 0 ? formatBRL(shippingAmount) : "Grátis";
   const total = selected.amount + shippingAmount;
   const savings =
     (parseInt(selected.reference.replace(/\D/g, ""), 10) || 0) - selected.amount;
@@ -312,10 +312,10 @@ function CheckoutPage() {
             <p className="text-2xl font-extrabold text-primary">{selected.price}</p>
             {addressReady ? (
               <p className="mt-1 text-xs text-muted-foreground">
-                + {shippingPrice} de frete • total {formatBRL(total)}
+                Frete grátis • total {formatBRL(total)}
               </p>
             ) : (
-              <p className="mt-1 text-xs text-muted-foreground">Frete calculado após o CEP</p>
+              <p className="mt-1 text-xs text-muted-foreground">Frete grátis para todo o Brasil</p>
             )}
           </div>
         </div>
@@ -462,7 +462,7 @@ function CheckoutPage() {
                             <span className="block text-xs text-muted-foreground">{option.eta}</span>
                           </span>
                         </span>
-                        <span className="text-sm font-bold text-primary">{formatBRL(fees?.[id] ?? 0)}</span>
+                        <span className="text-sm font-bold text-primary">{(fees?.[id] ?? 0) > 0 ? formatBRL(fees?.[id] ?? 0) : "Grátis"}</span>
                       </label>
                     );
                   })}
