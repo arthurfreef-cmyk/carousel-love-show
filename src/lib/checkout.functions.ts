@@ -31,7 +31,7 @@ const checkoutSchema = z.object({
   name: z.string().trim().min(3, "Informe seu nome completo"),
   email: z.string().trim().email("E-mail inválido"),
   shipping: z.enum(["standard", "express"]).default("standard"),
-  shippingAmount: z.number().int().min(500).max(800),
+  shippingAmount: z.number().int().min(0).max(800),
   document: z.string().transform(onlyDigits).refine((v) => v.length === 11, "CPF inválido"),
   zipcode: z.string().transform(onlyDigits).refine((v) => v.length === 8, "CEP inválido"),
   street: z.string().trim().min(2),

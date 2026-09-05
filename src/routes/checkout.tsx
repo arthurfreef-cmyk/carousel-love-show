@@ -30,37 +30,11 @@ const KIT_IMAGES: Record<KitId, { url: string; alt: string }> = {
   "5": { url: kit5Asset.url, alt: "Kit com cinco frascos do tônico Ultra D'Lust Original de 120 ml" },
 };
 
-const FEES_KEY = "udl-shipping-fees";
-
-function randomCents(min: number, max: number) {
-  let value = Math.floor(Math.random() * (max - min + 1)) + min;
-  // evita valores exatos tipo 5,00 / 8,00
-  if (value % 100 === 0) value += Math.floor(Math.random() * 90) + 5;
-  return value;
-}
-
-function generateShippingFees(): Record<ShippingId, number> {
-  return {
-    standard: randomCents(501, 649),
-    express: randomCents(651, 799),
-  };
-}
+// Frete grátis: o valor cobrado é exatamente o preço do kit exibido na oferta.
+const SHIPPING_FEES: Record<ShippingId, number> = { standard: 0, express: 0 };
 
 function loadShippingFees(): Record<ShippingId, number> {
-  try {
-    const raw = localStorage.getItem(FEES_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      if (typeof parsed.standard === "number" && typeof parsed.express === "number") {
-        return parsed as Record<ShippingId, number>;
-      }
-    }
-  } catch {
-    /* ignore */
-  }
-  const generated = generateShippingFees();
-  localStorage.setItem(FEES_KEY, JSON.stringify(generated));
-  return generated;
+  return SHIPPING_FEES;
 }
 
 export const Route = createFileRoute("/checkout")({
@@ -141,7 +115,6 @@ function CheckoutPage() {
   const formatBRL = (cents: number) =>
     (cents / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   const shippingAmount = fees?.[shipping] ?? 0;
-  const shippingPrice = formatBRL(shippingAmount);
   const total = selected.amount + shippingAmount;
   const savings =
     (parseInt(selected.reference.replace(/\D/g, ""), 10) || 0) - selected.amount;
@@ -338,10 +311,10 @@ function CheckoutPage() {
             <p className="text-2xl font-extrabold text-primary">{selected.price}</p>
             {addressReady ? (
               <p className="mt-1 text-xs text-muted-foreground">
-                + {shippingPrice} de frete • total {formatBRL(total)}
+                Frete grátis • total {formatBRL(total)}
               </p>
             ) : (
-              <p className="mt-1 text-xs text-muted-foreground">Frete calculado após o CEP</p>
+              <p className="mt-1 text-xs text-muted-foreground">Frete grátis para todo o Brasil</p>
             )}
           </div>
         </div>
@@ -488,7 +461,7 @@ function CheckoutPage() {
                             <span className="block text-xs text-muted-foreground">{option.eta}</span>
                           </span>
                         </span>
-                        <span className="text-sm font-bold text-primary">{formatBRL(fees?.[id] ?? 0)}</span>
+                        <span className="text-sm font-bold text-primary">{(fees?.[id] ?? 0) > 0 ? formatBRL(fees?.[id] ?? 0) : "Grátis"}</span>
                       </label>
                     );
                   })}
