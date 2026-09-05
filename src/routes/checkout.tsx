@@ -507,8 +507,9 @@ function CheckoutPage() {
               ) : (
                 <>
                   <Zap className="h-4 w-4" />
-                  Pagar {formatBRL(total)} com Pix
+                  Comprar agora • {formatBRL(total)}
                 </>
+
               )}
             </button>
 
