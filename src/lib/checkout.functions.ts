@@ -50,7 +50,24 @@ function buckpayHeaders() {
   };
 }
 
+/**
+ * A Buckpay pode devolver `error.detail` como string ou como objeto de
+ * validação ({ campo: ["msg"] }). Normalizamos para uma frase legível.
+ */
+function extractError(payload: any, fallback: string): string {
+  const raw = payload?.error?.detail ?? payload?.error?.message ?? payload?.message;
+  if (typeof raw === "string" && raw.trim()) return raw;
+  if (raw && typeof raw === "object") {
+    const parts = Object.entries(raw).map(([field, msgs]) =>
+      `${field}: ${Array.isArray(msgs) ? msgs.join(", ") : String(msgs)}`,
+    );
+    if (parts.length) return parts.join(" • ");
+  }
+  return fallback;
+}
+
 function pickPix(payload: any) {
+
   const pix = payload?.pix ?? payload?.data?.pix ?? {};
   const code =
     pix.code ?? pix.qrcode ?? pix.qr_code ?? pix.copy_paste ?? pix.emv ?? payload?.qrcode ?? null;
@@ -94,10 +111,10 @@ export const createPixCharge = createServerFn({ method: "POST" })
 
     const payload = await res.json().catch(() => ({}) as any);
     if (!res.ok) {
-      const message =
-        payload?.error?.detail ?? payload?.error?.message ?? "Não foi possível gerar o Pix agora.";
-      throw new Error(message);
+      console.error("[buckpay] erro", res.status, JSON.stringify(payload));
+      throw new Error(extractError(payload, "Não foi possível gerar o Pix agora."));
     }
+
 
     const body = payload?.data ?? payload;
     const { code, image } = pickPix(body);
