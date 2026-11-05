@@ -39,7 +39,7 @@ function loadShippingFees(): Record<ShippingId, number> {
   if (!Number.isInteger(expressFee) || expressFee < 801 || expressFee > 999) {
     const random = new Uint32Array(1);
     crypto.getRandomValues(random);
-    expressFee = 801 + (random[0] % 199);
+    expressFee = 801 + ((random[0] ?? 0) % 199);
     sessionStorage.setItem(storageKey, String(expressFee));
   }
 
