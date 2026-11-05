@@ -111,7 +111,6 @@ export const createPixCharge = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => checkoutSchema.parse(data))
   .handler(async ({ data }) => {
     const kit = KITS[data.kit];
-    const shipping = SHIPPING[data.shipping];
     const total = kit.amount + data.shippingAmount;
     const externalId = `udl-${data.kit}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
