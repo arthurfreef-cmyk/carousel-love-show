@@ -188,11 +188,21 @@ const FAQ = [
 function VslVideo() {
   const ref = useRef<HTMLVideoElement>(null);
 
-  // Mantém o som habilitado quando o usuário decidir iniciar o vídeo.
+  // Mantém o som habilitado e encerra a reprodução exatamente aos 28 segundos.
   useEffect(() => {
     const video = ref.current;
     if (!video) return;
     video.muted = false;
+
+    const stopAt28Seconds = () => {
+      if (video.currentTime >= 28) {
+        video.currentTime = 28;
+        video.pause();
+      }
+    };
+
+    video.addEventListener("timeupdate", stopAt28Seconds);
+    return () => video.removeEventListener("timeupdate", stopAt28Seconds);
   }, []);
 
   return (
@@ -201,7 +211,6 @@ function VslVideo() {
       src="/vsl-hero.mp4"
       controls
       playsInline
-      loop
       className="mt-3 aspect-video w-full rounded-sm border border-border bg-black object-cover"
       poster="/vsl-poster.jpg"
       aria-label="Vídeo explicativo Ultra D Lust"
