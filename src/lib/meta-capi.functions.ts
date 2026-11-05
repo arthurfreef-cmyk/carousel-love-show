@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-const PIXEL_ID = "28147467658255223";
+const PIXEL_ID = "1469021404979283";
 const GRAPH_URL = `https://graph.facebook.com/v19.0/${PIXEL_ID}/events`;
 
 const capiSchema = z.object({
