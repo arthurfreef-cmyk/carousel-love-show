@@ -212,10 +212,17 @@ function VslVideo() {
 function Landing() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* 1. Barra de urgência */}
-      <div className="sticky top-0 z-50 bg-urgency px-4 py-2.5 text-center text-urgency-foreground">
-        <p className="text-[11px] font-semibold uppercase leading-snug tracking-[0.12em] md:text-xs">
-          Condição especial disponível hoje — aproveite enquanto durar o lote.
+      {/* 1. Aviso de Black Friday */}
+      <div
+        role="status"
+        className="sticky top-0 z-50 border-b border-[#d6b45b]/40 bg-[#111111] px-4 py-3 text-center text-[#f5d77e]"
+      >
+        <p className="text-[11px] font-extrabold uppercase leading-snug tracking-[0.16em] md:text-xs">
+          <span aria-hidden="true" className="mr-2">✦</span>
+          Black Friday Ultra D Lust
+          <span aria-hidden="true" className="mx-2">•</span>
+          Confira os kits e ofertas disponíveis
+          <span aria-hidden="true" className="ml-2">✦</span>
         </p>
       </div>
 
