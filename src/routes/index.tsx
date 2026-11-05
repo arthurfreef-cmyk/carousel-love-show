@@ -88,7 +88,7 @@ const OFFERS = [
     units: "1 frasco • 120 ml",
     image: kit1Asset.url,
     alt: "Um frasco do tônico Ultra D'Lust Original de 120 ml",
-    reference: "R$ 30,90",
+    reference: "R$ 39,90",
     price: "R$ 15,90",
     cta: "QUERO 1 TÔNICO",
   },
@@ -100,7 +100,7 @@ const OFFERS = [
     units: "3 frascos • 120 ml cada",
     image: kit3Asset.url,
     alt: "Kit com três frascos do tônico Ultra D'Lust Original de 120 ml",
-    reference: "R$ 59,90",
+    reference: "R$ 79,90",
     price: "R$ 29,90",
     cta: "QUERO 3 TÔNICOS",
   },
@@ -112,7 +112,7 @@ const OFFERS = [
     units: "5 frascos • 120 ml cada",
     image: kit5Asset.url,
     alt: "Kit com cinco frascos do tônico Ultra D'Lust Original de 120 ml",
-    reference: "R$ 97,00",
+    reference: "R$ 119,90",
     price: "R$ 49,90",
     cta: "QUERO 5 TÔNICOS",
   },
@@ -323,7 +323,7 @@ function Landing() {
                   Tônico Ultra D&apos;Lust Original • 120 ml
                 </p>
                 <div className="mt-4 flex flex-wrap items-end gap-3">
-                  <span className="text-sm text-muted-foreground line-through">R$ 30,90</span>
+                  <span className="text-sm text-muted-foreground line-through">R$ 39,90</span>
                   <span className="text-3xl font-extrabold text-primary">R$ 15,90</span>
                 </div>
                 <p className="mt-2 text-xs text-muted-foreground">
