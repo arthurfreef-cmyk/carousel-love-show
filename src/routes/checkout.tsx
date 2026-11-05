@@ -92,6 +92,7 @@ function CheckoutPage() {
   const [form, setForm] = useState({
     name: "",
     email: "",
+    phone: "",
     document: "",
     zipcode: "",
     street: "",
@@ -351,7 +352,7 @@ function CheckoutPage() {
             {charge.pixImage ? (
               <img
                 src={
-                  charge.pixImage.startsWith("data:")
+                  charge.pixImage.startsWith("data:") || charge.pixImage.startsWith("http")
                     ? charge.pixImage
                     : `data:image/png;base64,${charge.pixImage}`
                 }
@@ -399,6 +400,11 @@ function CheckoutPage() {
                 <label className={label} htmlFor="email">E-mail</label>
                 <input id="email" type="email" required className={`${input} mt-2`} value={form.email}
                   onChange={(e) => set("email", e.target.value)} autoComplete="email" />
+              </div>
+              <div>
+                <label className={label} htmlFor="phone">Celular (WhatsApp)</label>
+                <input id="phone" type="tel" required inputMode="tel" className={`${input} mt-2`} value={form.phone}
+                  onChange={(e) => set("phone", e.target.value)} placeholder="(11) 99999-9999" autoComplete="tel" />
               </div>
               <div>
                 <label className={label} htmlFor="document">CPF</label>
