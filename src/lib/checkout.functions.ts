@@ -31,7 +31,7 @@ const checkoutSchema = z.object({
   name: z.string().trim().min(3, "Informe seu nome completo"),
   email: z.string().trim().email("E-mail inválido"),
   shipping: z.enum(["standard", "express"]).default("standard"),
-  shippingAmount: z.number().int().min(0).max(800),
+  shippingAmount: z.number().int().min(0).max(999),
   document: z.string().transform(onlyDigits).refine((v) => v.length === 11, "CPF inválido"),
   zipcode: z.string().transform(onlyDigits).refine((v) => v.length === 8, "CEP inválido"),
   street: z.string().trim().min(2),
@@ -39,6 +39,19 @@ const checkoutSchema = z.object({
   city: z.string().trim().min(2),
   state: z.string().trim().length(2),
   number: z.string().trim().min(1, "Informe o número"),
+}).superRefine((data, ctx) => {
+  const validShippingAmount =
+    data.shipping === "express"
+      ? data.shippingAmount >= 801 && data.shippingAmount <= 999
+      : data.shippingAmount === 0;
+
+  if (!validShippingAmount) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["shippingAmount"],
+      message: "Valor de frete inválido para a modalidade selecionada.",
+    });
+  }
 });
 
 function buckpayHeaders() {
