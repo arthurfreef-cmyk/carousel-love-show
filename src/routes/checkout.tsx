@@ -30,11 +30,20 @@ const KIT_IMAGES: Record<KitId, { url: string; alt: string }> = {
   "5": { url: kit5Asset.url, alt: "Kit com cinco frascos do tônico Ultra D'Lust Original de 120 ml" },
 };
 
-// Frete grátis: o valor cobrado é exatamente o preço do kit exibido na oferta.
-const SHIPPING_FEES: Record<ShippingId, number> = { standard: 0, express: 0 };
-
+// O frete expresso recebe um valor aleatório por sessão/lead, entre R$ 8,01 e R$ 9,99.
 function loadShippingFees(): Record<ShippingId, number> {
-  return SHIPPING_FEES;
+  const storageKey = "ultradlust-express-shipping-cents";
+  const saved = sessionStorage.getItem(storageKey);
+  let expressFee = saved ? Number(saved) : NaN;
+
+  if (!Number.isInteger(expressFee) || expressFee < 801 || expressFee > 999) {
+    const random = new Uint32Array(1);
+    crypto.getRandomValues(random);
+    expressFee = 801 + (random[0] % 199);
+    sessionStorage.setItem(storageKey, String(expressFee));
+  }
+
+  return { standard: 0, express: expressFee };
 }
 
 export const Route = createFileRoute("/checkout")({
@@ -311,7 +320,7 @@ function CheckoutPage() {
             <p className="text-2xl font-extrabold text-primary">{selected.price}</p>
             {addressReady ? (
               <p className="mt-1 text-xs text-muted-foreground">
-                Frete grátis • total {formatBRL(total)}
+                {shipping === "express" ? `Frete expresso: ${formatBRL(shippingAmount)}` : "Frete padrão grátis"} • total {formatBRL(total)}
               </p>
             ) : (
               <p className="mt-1 text-xs text-muted-foreground">Frete grátis para todo o Brasil</p>
