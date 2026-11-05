@@ -4,9 +4,9 @@ import { z } from "zod";
 const BASE_URL = "https://api.fruitfy.io/api";
 
 export const KITS = {
-  "1": { label: "1 Ultra D Lust", units: "1 frasco • 120 ml", reference: "R$ 30,90", price: "R$ 15,90", amount: 1590 },
-  "3": { label: "Kit 3 Ultra D Lust", units: "3 frascos • 120 ml", reference: "R$ 59,90", price: "R$ 29,90", amount: 2990 },
-  "5": { label: "Kit 5 Ultra D Lust", units: "5 frascos • 120 ml", reference: "R$ 97,00", price: "R$ 49,90", amount: 4990 },
+  "1": { label: "1 Ultra D Lust", units: "1 frasco • 120 ml", reference: "R$ 39,90", price: "R$ 15,90", amount: 1590 },
+  "3": { label: "Kit 3 Ultra D Lust", units: "3 frascos • 120 ml", reference: "R$ 79,90", price: "R$ 29,90", amount: 2990 },
+  "5": { label: "Kit 5 Ultra D Lust", units: "5 frascos • 120 ml", reference: "R$ 119,90", price: "R$ 49,90", amount: 4990 },
 } as const;
 
 export type KitId = keyof typeof KITS;
