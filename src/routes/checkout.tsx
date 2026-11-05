@@ -323,7 +323,7 @@ function CheckoutPage() {
                 {shipping === "express" ? `Frete expresso: ${formatBRL(shippingAmount)}` : "Frete padrão grátis"} • total {formatBRL(total)}
               </p>
             ) : (
-              <p className="mt-1 text-xs text-muted-foreground">Frete grátis para todo o Brasil</p>
+              <p className="mt-1 text-xs text-muted-foreground">Frete padrão grátis para todo o Brasil</p>
             )}
           </div>
         </div>
