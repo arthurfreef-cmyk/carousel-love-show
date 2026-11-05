@@ -1,7 +1,7 @@
 // Meta Pixel (cliente) — helpers tipados e inicialização.
 // O script base é injetado via head() em __root.tsx.
 
-export const META_PIXEL_ID = "28147467658255223";
+export const META_PIXEL_ID = "1469021404979283";
 
 declare global {
   interface Window {
