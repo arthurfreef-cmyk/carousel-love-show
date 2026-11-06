@@ -89,8 +89,8 @@ export const Route = createFileRoute("/checkout")({
 });
 
 const input =
-  "w-full border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary";
-const label = "text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground";
+  "min-h-12 w-full rounded-xl border border-border bg-background px-4 py-3 text-base outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-primary focus:ring-2 focus:ring-primary/20";
+const label = "text-xs font-bold uppercase tracking-[0.1em] text-muted-foreground";
 
 type Charge = Awaited<ReturnType<typeof createPixCharge>>;
 
@@ -299,9 +299,9 @@ function CheckoutPage() {
 
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="checkout-page min-h-screen bg-background text-foreground">
       <header className="border-b border-border">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-5 py-4">
+        <div className="mx-auto flex max-w-2xl items-center justify-between px-4 py-4 sm:px-6">
           <Link to="/" className="text-sm font-bold uppercase tracking-[0.2em]">
             Ultra D Lust
           </Link>
@@ -314,16 +314,16 @@ function CheckoutPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-3xl px-5 py-8 md:py-12">
+      <main className="mx-auto max-w-2xl px-4 py-7 sm:px-6 sm:py-10">
         <h1 className="text-2xl font-extrabold md:text-3xl">Finalize seu pedido</h1>
         <p className="mt-1.5 flex items-center gap-1.5 text-xs text-muted-foreground">
           <ShieldCheck className="h-3.5 w-3.5 text-primary" />
           Ambiente seguro — pagamento via Pix com confirmação instantânea
         </p>
 
-        <div className="relative mt-5 flex items-center justify-between gap-4 overflow-hidden border border-primary/30 bg-card p-5">
+        <div className="relative mt-6 flex flex-col items-stretch gap-4 overflow-hidden rounded-2xl border border-primary/30 bg-card p-4 shadow-lg shadow-black/10 sm:flex-row sm:items-center sm:justify-between sm:p-5">
           <div className="absolute left-0 top-0 h-full w-1 bg-primary" aria-hidden="true" />
-          <div className="flex items-center gap-4 pl-2">
+          <div className="flex items-center gap-3 pl-1 sm:gap-4 sm:pl-2">
             <img
               src={KIT_IMAGES[kit].url}
               alt={KIT_IMAGES[kit].alt}
@@ -340,7 +340,7 @@ function CheckoutPage() {
               </p>
             </div>
           </div>
-          <div className="text-right">
+          <div className="border-t border-border pt-3 text-left sm:border-0 sm:pt-0 sm:text-right">
             <p className="text-xs text-muted-foreground line-through">{selected.reference}</p>
             <p className="text-2xl font-extrabold text-primary">{selected.price}</p>
             {addressReady ? (
@@ -407,14 +407,14 @@ function CheckoutPage() {
             </p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+          <form onSubmit={handleSubmit} className="mt-8 space-y-8 rounded-2xl border border-border bg-card/40 p-4 sm:p-6">
             <div>
               <h2 className="flex items-center gap-2.5 text-sm font-extrabold uppercase tracking-[0.14em]">
                 <span className="flex h-6 w-6 items-center justify-center bg-primary text-xs font-extrabold text-primary-foreground">1</span>
                 Seus dados
               </h2>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-x-5 gap-y-5 sm:grid-cols-2">
               <div className="sm:col-span-2">
                 <label className={label} htmlFor="name">Nome completo</label>
                 <input id="name" required className={`${input} mt-2`} value={form.name}
@@ -539,7 +539,7 @@ function CheckoutPage() {
             <button
               type="submit"
               disabled={loading}
-              className="flex w-full items-center justify-center gap-2.5 bg-primary px-8 py-4 text-sm font-bold uppercase tracking-[0.14em] text-primary-foreground transition-all hover:brightness-110 active:scale-[0.99] disabled:opacity-60"
+              className="flex min-h-14 w-full items-center justify-center gap-2.5 rounded-xl bg-primary px-6 py-4 text-sm font-extrabold uppercase tracking-[0.1em] text-primary-foreground shadow-lg shadow-primary/15 transition-all hover:brightness-110 active:scale-[0.99] disabled:opacity-60"
             >
               {loading ? (
                 "Gerando Pix..."
