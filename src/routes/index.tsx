@@ -437,11 +437,8 @@ function Landing() {
                 />
                 <h3 className="mt-6 text-xl font-bold">{o.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{o.units}</p>
-                <p className="mt-7 text-sm font-medium text-muted-foreground">
-                  PREÇO DE REFERÊNCIA <span className="line-through">{o.reference}</span>
-                </p>
-                <p className="mt-2 text-[10px] font-bold uppercase tracking-[0.16em] text-primary">
-                  Sua condição promocional
+                <p className="mt-7 text-sm text-muted-foreground">
+                  De <span className="line-through">{o.reference}</span> por
                 </p>
                 <p className="mt-1 text-3xl font-extrabold text-primary">{o.price}</p>
                 <a
