@@ -421,10 +421,14 @@ function Landing() {
               <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
                 Compare os kits, escolha o que faz sentido para você e aproveite os valores promocionais. Quanto maior o kit, mais frascos você leva em um único pedido.
               </p>
-              <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-medium text-muted-foreground">
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-semibold text-muted-foreground">
                 <span className="inline-flex items-center gap-2"><span className="text-primary">✓</span> Frascos de 120 ml</span>
                 <span className="inline-flex items-center gap-2"><span className="text-primary">✓</span> Escolha seu kit</span>
                 <span className="inline-flex items-center gap-2"><span className="text-primary">✓</span> Garantia de 60 dias</span>
+              </div>
+              <div className="mx-auto mt-4 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2.5 text-xs font-extrabold uppercase tracking-[0.12em] text-primary shadow-sm">
+                <span aria-hidden="true">🚚</span>
+                Frete grátis em todos os kits
               </div>
             </div>
 
@@ -459,17 +463,22 @@ function Landing() {
                     <h3 className="text-xl font-extrabold">{o.title}</h3>
                     <p className="mt-1 text-sm text-muted-foreground">{o.units}</p>
                   </div>
-                  <div className="mt-6 rounded-sm bg-secondary/70 p-4">
+                  <div className="mt-6 rounded-sm border border-border bg-secondary/70 p-4">
                     <p className="text-xs font-medium text-muted-foreground">
                       De <span className="line-through">{o.reference}</span> por
                     </p>
                     <p className="mt-1 text-4xl font-extrabold tracking-tight text-primary">{o.price}</p>
+                    <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-primary">
+                      <span aria-hidden="true">✓</span>
+                      Economize {((Number(o.reference.replace("R$ ", "").replace(",", ".")) - Number(o.price.replace("R$ ", "").replace(",", "."))).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }))}
+                    </p>
                   </div>
                   <a
                     href={`/checkout?kit=${o.kit}`}
                     className={`mt-6 block w-full px-5 py-4 text-center text-xs font-extrabold uppercase tracking-[0.12em] transition-all hover:brightness-95 ${o.kit === "3" ? "bg-primary text-primary-foreground shadow-md" : "border border-primary bg-primary/5 text-primary hover:bg-primary hover:text-primary-foreground"}`}
                   >
                     {o.cta}
+                    <span aria-hidden="true">→</span>
                   </a>
                   <p className="mt-3 text-center text-[11px] leading-relaxed text-muted-foreground">
                     Você poderá conferir os dados do pedido antes de finalizar.
