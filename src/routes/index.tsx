@@ -408,69 +408,94 @@ function Landing() {
         </section>
 
         {/* 7. Oferta */}
-        <section id="oferta" className="mx-auto max-w-6xl px-5 py-16 md:py-24">
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-primary">Condição especial por tempo limitado</p>
-          <h2 className="mt-3 text-2xl font-extrabold leading-tight md:text-4xl">Leve mais unidades, aproveite o preço especial e comece sua rotina hoje.</h2>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            Compare os kits, escolha o que faz sentido para você e aproveite os valores promocionais. Quanto maior o kit, mais frascos você leva em um único pedido.
-          </p>
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {OFFERS.map((o) => (
-              <article
-                key={o.id}
-                className="flex flex-col border border-border bg-card p-7 transition-colors hover:border-primary/60"
-              >
-                {o.badge ? (
-                  <span className="mb-5 inline-block self-start bg-primary px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-primary-foreground">
-                    {o.badge}
-                  </span>
-                ) : null}
-                <img
-                  src={o.image}
-                  alt={o.alt}
-                  width={800}
-                  height={800}
-                  loading="lazy"
-                  decoding="async"
-                  sizes="(min-width: 768px) 320px, 90vw"
-                  className="mx-auto h-56 w-full object-contain"
-                />
-                <h3 className="mt-6 text-xl font-bold">{o.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{o.units}</p>
-                <p className="mt-7 text-sm text-muted-foreground">
-                  De <span className="line-through">{o.reference}</span> por
-                </p>
-                <p className="mt-1 text-3xl font-extrabold text-primary">{o.price}</p>
-                <a
-                  href={`/checkout?kit=${o.kit}`}
-                  className="mt-8 block bg-primary px-6 py-3.5 text-center text-xs font-bold uppercase tracking-[0.14em] text-primary-foreground transition-opacity hover:opacity-85"
-                >
-                  {o.cta}
-                </a>
-              </article>
-
-            ))}
-          </div>
-
-          {/* Garantia de 60 dias */}
-          <div className="mt-8 flex items-start gap-4 rounded-sm border border-primary/30 bg-primary/5 p-5 md:mt-10 md:p-6">
-            <span aria-hidden="true" className="shrink-0 text-2xl text-primary">
-              🛡️
-            </span>
-            <div>
-              <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-primary">
-                Garantia de 60 dias
-              </h3>
-              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                Você tem 60 dias de garantia de reembolso para avaliar sua compra com tranquilidade. Se decidir que não é para você, solicite o reembolso conforme as condições da garantia.
+        <section id="oferta" className="border-y border-border bg-secondary/30">
+          <div className="mx-auto max-w-6xl px-5 py-16 md:py-24">
+            <div className="mx-auto max-w-3xl text-center">
+              <span className="inline-flex items-center gap-2 border border-primary/30 bg-primary/10 px-4 py-2 text-[10px] font-extrabold uppercase tracking-[0.18em] text-primary">
+                <span aria-hidden="true">✦</span>
+                Condição especial por tempo limitado
+              </span>
+              <h2 className="mt-5 text-3xl font-extrabold leading-tight md:text-5xl">
+                Leve mais unidades, aproveite o preço especial e comece sua rotina hoje.
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+                Compare os kits, escolha o que faz sentido para você e aproveite os valores promocionais. Quanto maior o kit, mais frascos você leva em um único pedido.
               </p>
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-medium text-muted-foreground">
+                <span className="inline-flex items-center gap-2"><span className="text-primary">✓</span> Frascos de 120 ml</span>
+                <span className="inline-flex items-center gap-2"><span className="text-primary">✓</span> Escolha seu kit</span>
+                <span className="inline-flex items-center gap-2"><span className="text-primary">✓</span> Garantia de 60 dias</span>
+              </div>
             </div>
-          </div>
 
-          <p className="mt-6 text-xs text-muted-foreground">
-            Preço de referência riscado versus preço promocional informado. Consulte condições
-            de envio, troca e garantia antes de finalizar a compra.
-          </p>
+            <div className="mt-10 grid items-stretch gap-5 md:mt-14 md:grid-cols-3 md:gap-6">
+              {OFFERS.map((o) => (
+                <article
+                  key={o.id}
+                  className={`relative flex flex-col overflow-hidden rounded-sm border bg-card p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg md:p-7 ${o.kit === "3" ? "border-2 border-primary shadow-xl md:-translate-y-2 md:hover:-translate-y-3" : "border-border"}`}
+                >
+                  {o.badge ? (
+                    <span className={`mb-4 inline-flex min-h-7 items-center self-start px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] ${o.kit === "3" ? "bg-primary text-primary-foreground" : "bg-foreground/5 text-foreground"}`}>
+                      {o.badge}
+                    </span>
+                  ) : (
+                    <span className="mb-4 inline-flex min-h-7 items-center self-start px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+                      Comece por aqui
+                    </span>
+                  )}
+                  <div className="flex min-h-56 items-center justify-center rounded-sm bg-background/70 px-3">
+                    <img
+                      src={o.image}
+                      alt={o.alt}
+                      width={800}
+                      height={800}
+                      loading="lazy"
+                      decoding="async"
+                      sizes="(min-width: 768px) 320px, 90vw"
+                      className="h-52 w-full object-contain"
+                    />
+                  </div>
+                  <div className="mt-6">
+                    <h3 className="text-xl font-extrabold">{o.title}</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">{o.units}</p>
+                  </div>
+                  <div className="mt-6 rounded-sm bg-secondary/70 p-4">
+                    <p className="text-xs font-medium text-muted-foreground">
+                      De <span className="line-through">{o.reference}</span> por
+                    </p>
+                    <p className="mt-1 text-4xl font-extrabold tracking-tight text-primary">{o.price}</p>
+                  </div>
+                  <a
+                    href={`/checkout?kit=${o.kit}`}
+                    className={`mt-6 block w-full px-5 py-4 text-center text-xs font-extrabold uppercase tracking-[0.12em] transition-all hover:brightness-95 ${o.kit === "3" ? "bg-primary text-primary-foreground shadow-md" : "border border-primary bg-primary/5 text-primary hover:bg-primary hover:text-primary-foreground"}`}
+                  >
+                    {o.cta}
+                  </a>
+                  <p className="mt-3 text-center text-[11px] leading-relaxed text-muted-foreground">
+                    Você poderá conferir os dados do pedido antes de finalizar.
+                  </p>
+                </article>
+              ))}
+            </div>
+
+            {/* Garantia de 60 dias */}
+            <div className="mx-auto mt-8 flex max-w-4xl items-start gap-4 rounded-sm border border-primary/30 bg-card p-5 md:mt-10 md:p-6">
+              <span aria-hidden="true" className="shrink-0 text-2xl text-primary">🛡️</span>
+              <div>
+                <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-primary">
+                  Garantia de 60 dias
+                </h3>
+                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                  Você tem 60 dias de garantia de reembolso para avaliar sua compra com tranquilidade. Se decidir que não é para você, solicite o reembolso conforme as condições da garantia.
+                </p>
+              </div>
+            </div>
+
+            <p className="mt-6 text-center text-xs text-muted-foreground">
+              Preço de referência riscado versus preço promocional informado. Consulte condições
+              de envio, troca e garantia antes de finalizar a compra.
+            </p>
+          </div>
         </section>
 
         {/* 8. Prova social — carrossel automático */}
