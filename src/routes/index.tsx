@@ -470,7 +470,6 @@ function Landing() {
                     <p className="mt-1 text-4xl font-extrabold tracking-tight text-primary">{o.price}</p>
                     <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-primary">
                       <span aria-hidden="true">✓</span>
-                      Economize {((Number(o.reference.replace("R$ ", "").replace(",", ".")) - Number(o.price.replace("R$ ", "").replace(",", "."))).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }))}
                     </p>
                   </div>
                   <a
