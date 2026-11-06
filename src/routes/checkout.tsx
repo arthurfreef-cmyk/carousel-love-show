@@ -335,9 +335,6 @@ function CheckoutPage() {
             <div>
               <p className="text-sm font-bold">{selected.label}</p>
               <p className="text-xs text-muted-foreground">{selected.units}</p>
-              <p className="mt-1.5 inline-block bg-primary/15 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-primary">
-                Você economiza {formatBRL(savings)}
-              </p>
             </div>
           </div>
           <div className="border-t border-border pt-3 text-left sm:border-0 sm:pt-0 sm:text-right">
