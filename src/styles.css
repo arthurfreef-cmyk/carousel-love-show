@@ -163,3 +163,22 @@
     scroll-behavior: smooth;
   }
 }
+
+/* Checkout: evita o zoom automático do Safari/iOS ao focar campos */
+.checkout-page input:not([type="radio"]):not([type="checkbox"]),
+.checkout-page select,
+.checkout-page textarea {
+  font-size: 16px;
+}
+
+.checkout-page input:focus-visible,
+.checkout-page select:focus-visible,
+.checkout-page textarea:focus-visible {
+  outline: none;
+  scroll-margin-top: 1.5rem;
+}
+
+.checkout-page label {
+  -webkit-tap-highlight-color: transparent;
+}
+
