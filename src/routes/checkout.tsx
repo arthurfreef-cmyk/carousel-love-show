@@ -46,6 +46,23 @@ function loadShippingFees(): Record<ShippingId, number> {
   return { standard: 0, express: expressFee };
 }
 
+
+function maskPhone(v: string) {
+  const d = v.replace(/\\D/g, "").slice(0, 11);
+  if (d.length <= 2) return d.length ? `(${d}` : "";
+  if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
+  if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+  return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+}
+
+function maskCpf(v: string) {
+  const d = v.replace(/\\D/g, "").slice(0, 11);
+  return d
+    .replace(/(\\d{3})(\\d)/, "$1.$2")
+    .replace(/(\\d{3})(\\d)/, "$1.$2")
+    .replace(/(\\d{3})(\\d{1,2})$/, "$1-$2");
+}
+
 export const Route = createFileRoute("/checkout")({
   validateSearch: (search: Record<string, unknown>): { kit: KitId } => {
     const kit = String(search['kit'] ?? "1");
@@ -411,12 +428,12 @@ function CheckoutPage() {
               <div>
                 <label className={label} htmlFor="phone">Celular (WhatsApp)</label>
                 <input id="phone" type="tel" required inputMode="tel" className={`${input} mt-2`} value={form.phone}
-                  onChange={(e) => set("phone", e.target.value)} placeholder="(11) 99999-9999" autoComplete="tel" />
+                  onChange={(e) => set("phone", maskPhone(e.target.value))} placeholder="(11) 99999-9999" autoComplete="tel" />
               </div>
               <div>
                 <label className={label} htmlFor="document">CPF</label>
                 <input id="document" required inputMode="numeric" className={`${input} mt-2`} value={form.document}
-                  onChange={(e) => set("document", e.target.value)} placeholder="000.000.000-00" />
+                  onChange={(e) => set("document", maskCpf(e.target.value))} placeholder="000.000.000-00" />
               </div>
               <div className="sm:col-span-2 mt-2">
                 <h2 className="flex items-center gap-2.5 text-sm font-extrabold uppercase tracking-[0.14em]">
