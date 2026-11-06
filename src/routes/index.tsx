@@ -90,7 +90,7 @@ const OFFERS = [
     alt: "Um frasco do tônico Ultra D'Lust Original de 120 ml",
     reference: "R$ 39,90",
     price: "R$ 15,90",
-    cta: "QUERO 1 TÔNICO",
+    cta: "QUERO APROVEITAR POR R$ 15,90",
   },
   {
     id: "checkout-3",
@@ -102,7 +102,7 @@ const OFFERS = [
     alt: "Kit com três frascos do tônico Ultra D'Lust Original de 120 ml",
     reference: "R$ 79,90",
     price: "R$ 29,90",
-    cta: "QUERO 3 TÔNICOS",
+    cta: "QUERO MEU KIT COM 3",
   },
   {
     id: "checkout-5",
@@ -114,7 +114,7 @@ const OFFERS = [
     alt: "Kit com cinco frascos do tônico Ultra D'Lust Original de 120 ml",
     reference: "R$ 119,90",
     price: "R$ 49,90",
-    cta: "QUERO 5 TÔNICOS",
+    cta: "QUERO A MAIOR ECONOMIA",
   },
 ] as const;
 
@@ -326,9 +326,15 @@ function Landing() {
                   <span className="text-sm text-muted-foreground line-through">R$ 39,90</span>
                   <span className="text-3xl font-extrabold text-primary">R$ 15,90</span>
                 </div>
-                <p className="mt-2 text-xs text-muted-foreground">
-                  Preço promocional por frasco. Kits com 3 e 5 unidades saem por menos.
+                <p className="mt-2 text-xs font-medium text-muted-foreground">
+                  Oferta especial: escolha seu kit e aproveite o preço promocional enquanto esta condição estiver disponível.
                 </p>
+                <div className="mt-4 flex items-center gap-2 border border-primary/30 bg-primary/5 px-3 py-2.5">
+                  <span aria-hidden="true" className="text-lg">🛡️</span>
+                  <span className="text-xs font-bold uppercase tracking-wide text-primary">
+                    60 dias de garantia de reembolso
+                  </span>
+                </div>
                 <a
                   href="#oferta"
                   className="mt-6 block bg-primary px-8 py-4 text-center text-sm font-bold uppercase tracking-[0.14em] text-primary-foreground transition-opacity hover:opacity-85"
@@ -403,7 +409,11 @@ function Landing() {
 
         {/* 7. Oferta */}
         <section id="oferta" className="mx-auto max-w-6xl px-5 py-16 md:py-24">
-          <h2 className="text-2xl font-extrabold md:text-4xl">Escolha o tamanho da sua rotina.</h2>
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-primary">Condição especial por tempo limitado</p>
+          <h2 className="mt-3 text-2xl font-extrabold leading-tight md:text-4xl">Leve mais unidades, aproveite o preço especial e comece sua rotina hoje.</h2>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+            Compare os kits, escolha o que faz sentido para você e aproveite os valores promocionais. Quanto maior o kit, mais frascos você leva em um único pedido.
+          </p>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {OFFERS.map((o) => (
               <article
@@ -427,8 +437,11 @@ function Landing() {
                 />
                 <h3 className="mt-6 text-xl font-bold">{o.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{o.units}</p>
-                <p className="mt-7 text-sm text-muted-foreground">
-                  de <span className="line-through">{o.reference}</span> por
+                <p className="mt-7 text-sm font-medium text-muted-foreground">
+                  PREÇO DE REFERÊNCIA <span className="line-through">{o.reference}</span>
+                </p>
+                <p className="mt-2 text-[10px] font-bold uppercase tracking-[0.16em] text-primary">
+                  Sua condição promocional
                 </p>
                 <p className="mt-1 text-3xl font-extrabold text-primary">{o.price}</p>
                 <a
@@ -442,18 +455,17 @@ function Landing() {
             ))}
           </div>
 
-          {/* Garantia de 30 dias */}
+          {/* Garantia de 60 dias */}
           <div className="mt-8 flex items-start gap-4 rounded-sm border border-primary/30 bg-primary/5 p-5 md:mt-10 md:p-6">
             <span aria-hidden="true" className="shrink-0 text-2xl text-primary">
               🛡️
             </span>
             <div>
               <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-primary">
-                Garantia de 30 dias
+                Garantia de 60 dias
               </h3>
               <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                Se você não sentir que o Ultra D Lust faz sentido na sua rotina, devolvemos seu
-                dinheiro. Risco zero para você testar.
+                Você tem 60 dias de garantia de reembolso para avaliar sua compra com tranquilidade. Se decidir que não é para você, solicite o reembolso conforme as condições da garantia.
               </p>
             </div>
           </div>
