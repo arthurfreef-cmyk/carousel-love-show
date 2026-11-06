@@ -108,6 +108,7 @@ function CheckoutPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [charge, setCharge] = useState<Charge | null>(null);
+  const pixSectionRef = useRef<HTMLDivElement>(null);
   const [paid, setPaid] = useState(false);
   const [copied, setCopied] = useState(false);
   const numberRef = useRef<HTMLInputElement>(null);
@@ -219,6 +220,12 @@ function CheckoutPage() {
       cancelled = true;
     };
   }, [form.zipcode]);
+
+  // Leva o cliente diretamente ao QR Code e ao código assim que o Pix é gerado.
+  useEffect(() => {
+    if (!charge) return;
+    pixSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [charge]);
 
   // Confirmação automática do pagamento
   useEffect(() => {
@@ -344,7 +351,7 @@ function CheckoutPage() {
             </Link>
           </div>
         ) : charge ? (
-          <div className="mt-8 border border-border bg-card p-6 text-center animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <div ref={pixSectionRef} className="mt-8 border border-border bg-card p-6 text-center animate-in fade-in slide-in-from-bottom-2 duration-300">
             <h2 className="text-lg font-bold">Pague com Pix para concluir</h2>
             <p className="mt-1 text-xs text-muted-foreground">
               Abra o app do seu banco, escaneie o QR Code ou copie o código abaixo.
